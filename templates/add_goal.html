@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Goal - FitTrackDB</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #111111; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+        .card { background: #1a1a1a; padding: 36px; border-radius: 12px; width: 100%; max-width: 460px; border: 1px solid #2a2a2a; }
+        h2 { color: #FFD700; font-size: 20px; margin-bottom: 6px; }
+        .subtitle { color: #888; font-size: 13px; margin-bottom: 24px; }
+        label { display: block; font-size: 13px; color: #aaa; margin-bottom: 6px; margin-top: 14px; }
+        input, select, textarea {
+            width: 100%; padding: 10px 12px; border: 1px solid #333;
+            border-radius: 8px; font-size: 14px; outline: none;
+            background: #222; color: #F5F5F5;
+        }
+        input:focus, select:focus, textarea:focus { border-color: #FFD700; }
+        textarea { resize: vertical; height: 70px; }
+        .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        button {
+            width: 100%; margin-top: 24px; padding: 12px;
+            background: #FFD700; color: #111111; border: none;
+            border-radius: 8px; font-size: 15px; font-weight: bold; cursor: pointer;
+        }
+        button:hover { background: #e6c200; }
+        .back { display: block; text-align: center; margin-top: 16px; color: #555; text-decoration: none; font-size: 13px; }
+        .back:hover { color: #FFD700; }
+        .hint { color: #555; font-size: 12px; margin-top: 4px; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>🎯 Set a Goal</h2>
+        <p class="subtitle">Define what you're working toward</p>
+        <form method="POST">
+            <label>Goal Type</label>
+            <select name="goal_type">
+                <option value="Target Weight (lbs)">Target Weight (lbs)</option>
+                <option value="Daily Calories">Daily Calories</option>
+                <option value="Weekly Workouts">Weekly Workouts</option>
+                <option value="Daily Water (oz)">Daily Water (oz)</option>
+                <option value="Sleep Hours">Sleep Hours</option>
+                <option value="Custom">Custom</option>
+            </select>
+            <div class="grid2">
+                <div>
+                    <label>Current Value</label>
+                    <input type="number" step="0.1" name="current_value" placeholder="e.g. 160" required>
+                </div>
+                <div>
+                    <label>Target Value</label>
+                    <input type="number" step="0.1" name="target_value" placeholder="e.g. 145" required>
+                </div>
+            </div>
+            <div class="grid2">
+                <div>
+                    <label>Start Date</label>
+                    <input type="date" name="start_date" required>
+                </div>
+                <div>
+                    <label>Target Date</label>
+                    <input type="date" name="target_date">
+                </div>
+            </div>
+            <label>Notes</label>
+            <textarea name="notes" placeholder="e.g. Lose weight before summer..."></textarea>
+            <button type="submit">Save Goal</button>
+        </form>
+        <a href="/dashboard" class="back">← Back to Dashboard</a>
+    </div>
+</body>
+</html>

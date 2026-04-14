@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitTrackDB Dashboard</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #111111; color: #F5F5F5; }
+        nav {
+            background: #1a1a1a;
+            padding: 14px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #FFD700;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        nav h1 { color: #FFD700; font-size: 22px; letter-spacing: 1px; }
+        nav div { display: flex; gap: 8px; flex-wrap: wrap; }
+        nav a {
+            color: #FFD700; text-decoration: none; font-size: 12px;
+            padding: 6px 12px; border: 1px solid #FFD700; border-radius: 6px;
+        }
+        nav a:hover { background: #FFD700; color: #111111; }
+        nav a.profile-btn {
+            background: #FFD700; color: #111111; font-weight: bold;
+        }
+        nav a.profile-btn:hover { background: #e6c200; }
+        .container { max-width: 1200px; margin: 24px auto; padding: 0 16px; }
+        .welcome { font-size: 20px; font-weight: bold; margin-bottom: 20px; color: #FFD700; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        @media (max-width: 700px) { .grid { grid-template-columns: 1fr; } }
+        .card { background: #1a1a1a; border-radius: 12px; padding: 20px; border: 1px solid #2a2a2a; }
+        .card h2 {
+            font-size: 13px; color: #FFD700; margin-bottom: 14px;
+            padding-bottom: 8px; border-bottom: 1px solid #333;
+            text-transform: uppercase; letter-spacing: 1px;
+        }
+        table { width: 100%; border-collapse: collapse; font-size: 13px; }
+        th { text-align: left; padding: 7px 8px; color: #666; font-weight: normal; font-size: 12px; }
+        td { padding: 7px 8px; border-bottom: 1px solid #222; color: #F5F5F5; }
+        .btn-delete {
+            background: #2a0000; color: #ff4444; border: 1px solid #440000;
+            padding: 3px 8px; border-radius: 4px; cursor: pointer;
+            font-size: 11px; text-decoration: none;
+        }
+        .btn-delete:hover { background: #ff4444; color: white; border-color: #ff4444; }
+        .add-btn {
+            display: inline-block; margin-top: 14px; padding: 7px 14px;
+            background: #FFD700; color: #111111; border-radius: 6px;
+            text-decoration: none; font-size: 12px; font-weight: bold;
+        }
+        .add-btn:hover { background: #e6c200; }
+        .empty { color: #444; font-size: 13px; padding: 8px 0; }
+        .progress-bar-bg {
+            background: #222; border-radius: 20px; height: 10px;
+            margin-top: 4px; overflow: hidden;
+        }
+        .progress-bar {
+            height: 10px; border-radius: 20px; background: #FFD700;
+            transition: width 0.3s;
+        }
+        .goal-row { margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid #222; }
+        .goal-row:last-child { border-bottom: none; margin-bottom: 0; }
+        .goal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+        .goal-type { font-size: 13px; font-weight: bold; color: #F5F5F5; }
+        .goal-values { font-size: 12px; color: #888; }
+    </style>
+</head>
+<body>
+    <nav>
+        <h1>⚡ FitTrackDB</h1>
+        <div>
+            <a href="/add_meal">+ Meal</a>
+            <a href="/add_workout">+ Workout</a>
+            <a href="/add_weight">+ Weight</a>
+            <a href="/add_sleep">+ Sleep</a>
+            <a href="/add_water">+ Water</a>
+            <a href="/add_goal">+ Goal</a>
+            <a href="/profile" class="profile-btn">👤 Profile</a>
+            <a href="/logout">Logout</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <p class="welcome">Welcome back, {{ session['user_name'] }}!</p>
+
+        <div class="grid">
+            <!-- Meals -->
+            <div class="card">
+                <h2>🍽 Meals</h2>
+                {% if meals %}
+                <table>
+                    <tr><th>Name</th><th>Date</th><th>Type</th><th>Cal</th><th></th></tr>
+                    {% for row in meals %}
+                    <tr>
+                        <td>{{ row[1] }}</td>
+                        <td>{{ row[2] }}</td>
+                        <td>{{ row[3] }}</td>
+                        <td>{{ row[4] }}</td>
+                        <td><a href="/delete_meal/{{ row[0] }}" class="btn-delete">✕</a></td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                {% else %}
+                <p class="empty">No meals logged yet.</p>
+                {% endif %}
+                <a href="/add_meal" class="add-btn">+ Log Meal</a>
+            </div>
+
+            <!-- Workouts -->
+            <div class="card">
+                <h2>💪 Workouts</h2>
+                {% if workouts %}
+                <table>
+                    <tr><th>Date</th><th>Type</th><th>Duration</th><th></th></tr>
+                    {% for row in workouts %}
+                    <tr>
+                        <td>{{ row[1] }}</td>
+                        <td>{{ row[2] }}</td>
+                        <td>{{ row[3] }} min</td>
+                        <td><a href="/delete_workout/{{ row[0] }}" class="btn-delete">✕</a></td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                {% else %}
+                <p class="empty">No workouts logged yet.</p>
+                {% endif %}
+                <a href="/add_workout" class="add-btn">+ Log Workout</a>
+            </div>
+
+            <!-- Weight -->
+            <div class="card">
+                <h2>⚖ Weight Log</h2>
+                {% if weights %}
+                <table>
+                    <tr><th>Date</th><th>Weight</th><th></th></tr>
+                    {% for row in weights %}
+                    <tr>
+                        <td>{{ row[1] }}</td>
+                        <td>{{ row[2] }} lbs</td>
+                        <td><a href="/delete_weight/{{ row[0] }}" class="btn-delete">✕</a></td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                {% else %}
+                <p class="empty">No weight logged yet.</p>
+                {% endif %}
+                <a href="/add_weight" class="add-btn">+ Log Weight</a>
+            </div>
+
+            <!-- Sleep -->
+            <div class="card">
+                <h2>😴 Sleep Log</h2>
+                {% if sleep %}
+                <table>
+                    <tr><th>Date</th><th>Hours</th><th>Energy</th></tr>
+                    {% for row in sleep %}
+                    <tr>
+                        <td>{{ row[0] }}</td>
+                        <td>{{ row[1] }} hrs</td>
+                        <td>{{ row[2] }}/10</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                {% else %}
+                <p class="empty">No sleep logged yet.</p>
+                {% endif %}
+                <a href="/add_sleep" class="add-btn">+ Log Sleep</a>
+            </div>
+
+            <!-- Water -->
+            <div class="card">
+                <h2>💧 Water Intake</h2>
+                {% if water %}
+                <table>
+                    <tr><th>Date</th><th>Ounces</th></tr>
+                    {% for row in water %}
+                    <tr>
+                        <td>{{ row[0] }}</td>
+                        <td>{{ row[1] }} oz</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                {% else %}
+                <p class="empty">No water logged yet.</p>
+                {% endif %}
+                <a href="/add_water" class="add-btn">+ Log Water</a>
+            </div>
+
+            <!-- Goals -->
+            <div class="card">
+                <h2>🎯 Goals</h2>
+                {% if goals %}
+                {% for row in goals %}
+                <div class="goal-row">
+                    <div class="goal-header">
+                        <span class="goal-type">{{ row[1] }}</span>
+                        <a href="/delete_goal/{{ row[0] }}" class="btn-delete">✕</a>
+                    </div>
+                    <div class="goal-values">
+                        Current: {{ row[3] }} → Target: {{ row[2] }}
+                        {% if row[4] %} | Due: {{ row[4] }}{% endif %}
+                    </div>
+                    {% if row[3] and row[2] %}
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar" style="width: {{ [[(row[3] / row[2]) * 100, 0]|max, 100]|min }}%"></div>
+                    </div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+                {% else %}
+                <p class="empty">No goals set yet.</p>
+                {% endif %}
+                <a href="/add_goal" class="add-btn">+ Add Goal</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

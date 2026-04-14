@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log Sleep - FitTrackDB</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #111111; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+        .card { background: #1a1a1a; padding: 36px; border-radius: 12px; width: 100%; max-width: 460px; border: 1px solid #2a2a2a; }
+        h2 { color: #FFD700; font-size: 20px; margin-bottom: 6px; }
+        .subtitle { color: #888; font-size: 13px; margin-bottom: 24px; }
+        label { display: block; font-size: 13px; color: #aaa; margin-bottom: 6px; margin-top: 14px; }
+        input, select, textarea {
+            width: 100%; padding: 10px 12px; border: 1px solid #333;
+            border-radius: 8px; font-size: 14px; outline: none;
+            background: #222; color: #F5F5F5;
+        }
+        input:focus, select:focus, textarea:focus { border-color: #FFD700; }
+        textarea { resize: vertical; height: 80px; }
+        button {
+            width: 100%; margin-top: 24px; padding: 12px;
+            background: #FFD700; color: #111111; border: none;
+            border-radius: 8px; font-size: 15px; font-weight: bold; cursor: pointer;
+        }
+        button:hover { background: #e6c200; }
+        .back { display: block; text-align: center; margin-top: 16px; color: #555; text-decoration: none; font-size: 13px; }
+        .back:hover { color: #FFD700; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>Log Sleep</h2>
+        <p class="subtitle">Track your recovery and energy</p>
+        <form method="POST">
+            <label>Date</label>
+            <input type="date" name="log_date" required>
+            <label>Sleep Hours</label>
+            <input type="number" name="sleep_hours" step="0.5" min="0" max="24" placeholder="e.g. 7.5" required>
+            <label>Energy Level (1-10)</label>
+            <input type="number" name="energy_level" min="1" max="10" placeholder="e.g. 8" required>
+            <label>Notes</label>
+            <textarea name="notes" placeholder="How did you feel?"></textarea>
+            <button type="submit">Save Sleep Log</button>
+        </form>
+        <a href="/dashboard" class="back">← Back to Dashboard</a>
+    </div>
+</body>
+</html>

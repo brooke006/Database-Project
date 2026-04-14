@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitTrackDB Login</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #111111;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .card {
+            background: #1a1a1a;
+            padding: 40px;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 400px;
+            border: 1px solid #2a2a2a;
+        }
+        .logo { color: #FFD700; font-size: 32px; font-weight: bold; margin-bottom: 6px; letter-spacing: 1px; }
+        .subtitle { color: #888; font-size: 14px; margin-bottom: 32px; }
+        label { display: block; font-size: 13px; color: #aaa; margin-bottom: 6px; }
+        input {
+            width: 100%; padding: 12px; border: 1px solid #333;
+            border-radius: 8px; font-size: 14px; margin-bottom: 16px;
+            outline: none; background: #222; color: #F5F5F5;
+        }
+        input:focus { border-color: #FFD700; }
+        button {
+            width: 100%; padding: 12px; background: #FFD700;
+            color: #111111; border: none; border-radius: 8px;
+            font-size: 15px; font-weight: bold; cursor: pointer; margin-top: 4px;
+        }
+        button:hover { background: #e6c200; }
+        .error {
+            background: #2a0000; color: #ff4444;
+            padding: 10px; border-radius: 8px;
+            margin-bottom: 16px; font-size: 13px;
+            border: 1px solid #ff4444;
+        }
+        .signup-link {
+            text-align: center; margin-top: 20px;
+            font-size: 13px; color: #555;
+        }
+        .signup-link a { color: #FFD700; text-decoration: none; font-weight: bold; }
+        .signup-link a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="logo">⚡ FitTrackDB</div>
+        <p class="subtitle">Health & Fitness Database System</p>
+        {% if error %}
+        <div class="error">{{ error }}</div>
+        {% endif %}
+        <form method="POST">
+            <label>Email Address</label>
+            <input type="email" name="email" placeholder="you@email.com" required>
+            <label>Password</label>
+            <input type="password" name="password" placeholder="Enter your password" required>
+            <button type="submit">Log In</button>
+        </form>
+        <div class="signup-link">
+            Don't have an account? <a href="/signup">Sign Up</a>
+        </div>
+    </div>
+</body>
+</html>

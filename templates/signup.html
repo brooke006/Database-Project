@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - FitTrackDB</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #111111;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .card {
+            background: #1a1a1a;
+            padding: 40px;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 420px;
+            border: 1px solid #2a2a2a;
+        }
+        .logo { color: #FFD700; font-size: 28px; font-weight: bold; margin-bottom: 6px; }
+        .subtitle { color: #888; font-size: 14px; margin-bottom: 28px; }
+        label { display: block; font-size: 13px; color: #aaa; margin-bottom: 6px; }
+        input {
+            width: 100%; padding: 12px; border: 1px solid #333;
+            border-radius: 8px; font-size: 14px; margin-bottom: 16px;
+            outline: none; background: #222; color: #F5F5F5;
+        }
+        input:focus { border-color: #FFD700; }
+        .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        button {
+            width: 100%; padding: 12px; background: #FFD700;
+            color: #111111; border: none; border-radius: 8px;
+            font-size: 15px; font-weight: bold; cursor: pointer; margin-top: 4px;
+        }
+        button:hover { background: #e6c200; }
+        .error {
+            background: #2a0000; color: #ff4444;
+            padding: 10px; border-radius: 8px;
+            margin-bottom: 16px; font-size: 13px;
+            border: 1px solid #ff4444;
+        }
+        .login-link {
+            text-align: center; margin-top: 20px;
+            font-size: 13px; color: #555;
+        }
+        .login-link a { color: #FFD700; text-decoration: none; font-weight: bold; }
+        .login-link a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="logo">⚡ FitTrackDB</div>
+        <p class="subtitle">Create your account</p>
+        {% if error %}
+        <div class="error">{{ error }}</div>
+        {% endif %}
+        <form method="POST">
+            <div class="grid2">
+                <div>
+                    <label>First Name</label>
+                    <input type="text" name="first_name" placeholder="First" required>
+                </div>
+                <div>
+                    <label>Last Name</label>
+                    <input type="text" name="last_name" placeholder="Last" required>
+                </div>
+            </div>
+            <label>Email Address</label>
+            <input type="email" name="email" placeholder="you@email.com" required>
+            <label>Date of Birth</label>
+            <input type="date" name="dob" required>
+            <label>Password</label>
+            <input type="password" name="password" placeholder="Create a password" required>
+            <button type="submit">Create Account</button>
+        </form>
+        <div class="login-link">
+            Already have an account? <a href="/">Log In</a>
+        </div>
+    </div>
+</body>
+</html>
