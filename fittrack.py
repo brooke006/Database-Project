@@ -13,12 +13,11 @@ cursor = conn.cursor()
 # 1. Daily calorie total
 print("\n--- Daily Calorie Totals (User 1) ---")
 cursor.execute("""
-    SELECT MealDate, SUM(Calories) AS DailyCalories
+    SELECT Meals.MealID, MealName, MealDate, MealType, Calories
     FROM Meals
     JOIN MealNutrition ON Meals.MealID = MealNutrition.MealID
-    WHERE Meals.UserID = 1
-    GROUP BY MealDate
-""")
+    WHERE Meals.UserID = %s ORDER BY MealDate DESC
+""", (user_id,))
 for row in cursor.fetchall():
     print(f"Date: {row[0]} | Calories: {row[1]}")
 
