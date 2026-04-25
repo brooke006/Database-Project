@@ -2,7 +2,7 @@
 
 
 
-The final project is an individual software application developed using MySQL, Python (Flask), and Java. The goal of the project is to design and implement a health and fitness tracking system that stores and manages user data in a structured relational database.
+My final project is an individual software application developed using MySQL, Python (Flask), and Java. The goal of the project is to design and implement a health and fitness tracking system that stores and manages user data in a structured relational database.
 
 
 
